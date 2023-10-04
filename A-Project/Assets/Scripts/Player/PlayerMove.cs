@@ -3,24 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using static Define;
 
 public class PlayerMove : MonoBehaviour
 {
+    // 기본 이동속도
     public float moveSpeed = 1f;
-    public float _animModifier = -0.3f;
 
-    public bool _PlaneIsFollowing = true;
-
+    // 회전 애니메이션 속도
     public float turnSmoothTime = 0.1f;
-    float turnSmoothVelocity;
+
+    // 애니메이션 재생 속도 조정 수치
+    public float _animModifier = -0.3f;
 
     string currentPlane = string.Empty;
     int currentAnimLayer = 1;
 
     int _changeLayer;
     float _changeWeight;
-
-    public Transform _Plane;
+    float turnSmoothVelocity;
 
     CharacterController controller;
     Transform cam;
@@ -43,18 +44,27 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_PlaneIsFollowing)
-            _Plane.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-
-        Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
         PlaneCheck();
+        Move();
         UpdateAnimation();
 
-        controller.Move(new Vector3(0f, -2f, 0f) * Time.deltaTime);
+        // controller.Move(new Vector3(0f, -2f, 0f) * Time.deltaTime);
+    }
+
+    void Move()
+    {
+        Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
         if (direction.magnitude > 0.1f)
         {
-            Move(direction);
+            float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            Vector3 MoveDir = (Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward).normalized;
+
+            // moveSpeed를 지형 지물에 따라서 변경해줘야 함
+            controller.Move(MoveDir * moveSpeed * Time.deltaTime);
             anim.SetBool("Move", true);
         }
         else
@@ -62,18 +72,8 @@ public class PlayerMove : MonoBehaviour
             anim.SetBool("Move", false);
         }
 
-    }
-
-    void Move(Vector2 direction)
-    {
-        float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg + cam.eulerAngles.y;
-        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-        transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-        Vector3 MoveDir = (Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward).normalized;
-
-        // moveSpeed를 지형 지물에 따라서 변경해줘야 함
-        controller.Move(MoveDir * moveSpeed * Time.deltaTime);
+        // 중력
+        controller.Move(Vector3.down * 3f);
     }
 
     void PlaneCheck()
@@ -83,7 +83,7 @@ public class PlayerMove : MonoBehaviour
 
         if (hit.collider == null) return;
 
-        if(currentPlane != hit.collider.gameObject.tag)
+        if (currentPlane != hit.collider.gameObject.tag)
         {
             currentPlane = hit.collider.gameObject.tag;
 
@@ -110,14 +110,19 @@ public class PlayerMove : MonoBehaviour
     void UpdateAnimation()
     {
         float tempWeight = anim.GetLayerWeight(currentAnimLayer);
-        if(_changeWeight >= tempWeight)
+        if (_changeWeight >= tempWeight)
         {
             tempWeight += Time.deltaTime;
         }
-        else if(_changeWeight <= tempWeight )
+        else if (_changeWeight <= tempWeight)
         {
             tempWeight -= Time.deltaTime;
         }
         anim.SetLayerWeight(_changeLayer, tempWeight);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
     }
 }
