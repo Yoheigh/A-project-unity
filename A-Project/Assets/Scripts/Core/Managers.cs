@@ -40,5 +40,5 @@ public class Managers : MonoBehaviour
     public static UIManager UI { get { return Instance?._ui; } }
     public static SoundManager Sound { get { return Instance?._sound; } }
     public static CoroutineManager CO { get { return CoroutineManager.Instance; } }
-
+    public static TickManager Tick { get { return TickManager.Instance;  } }
 }
