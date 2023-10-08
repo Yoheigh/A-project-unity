@@ -84,6 +84,14 @@ public abstract class UIBase : MonoBehaviour
                 evt.OnPressedHandler -= action;
                 evt.OnPressedHandler += action;
                 break;
+            case Define.UIEvent.PointerEnter:
+                evt.OnPointerEnterHandler -= action;
+                evt.OnPointerEnterHandler += action;
+                break;
+            case Define.UIEvent.PointerExit:
+                evt.OnPointerExitHandler -= action;
+                evt.OnPointerExitHandler += action;
+                break;
             case Define.UIEvent.PointerDown:
                 evt.OnPointerDownHandler -= action;
                 evt.OnPointerDownHandler += action;
