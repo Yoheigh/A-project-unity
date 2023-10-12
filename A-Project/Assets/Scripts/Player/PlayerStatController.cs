@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerStatController : MonoBehaviour
 {
-
     PlayerStat currentStat
     {
         get
