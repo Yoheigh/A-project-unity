@@ -22,16 +22,22 @@ public abstract class UIBase : MonoBehaviour
         _init = true;
         return true;
     }
-    private void Start()
-    {
-        Init();
-    }
+
+    //private void Start()
+    //{
+    //    Init();
+    //}
 
     protected void Bind<T>(Type type) where T : UnityEngine.Object
     {
         string[] names = Enum.GetNames(type);
         UnityEngine.Object[] objects = new UnityEngine.Object[names.Length];
+        foreach(string name in names)
+        {
+            Debug.Log(name + " : µî·ÏµÈ UIµé");
+        }
         _objects.Add(typeof(T), objects);
+        Debug.Log(objects + "µî·Ï ¿Ï·á");
 
         for (int i = 0; i < names.Length; i++)
         {
@@ -115,10 +121,10 @@ public abstract class UIBase : MonoBehaviour
         }
     }
 
-    public void PopupOpenAnimation(GameObject contentObject) // ÆË¾÷ ¿ÀÇÂ ¿¬Ãâ
-    {
-        contentObject.transform.localScale = new Vector3(0.8f, 0.8f, 1);
-        contentObject.transform.DOScale(1f, 0.1f).SetEase(Ease.InOutBack).SetUpdate(true);
-    }
+    //public void PopupOpenAnimation(GameObject contentObject) // ÆË¾÷ ¿ÀÇÂ ¿¬Ãâ
+    //{
+    //    contentObject.transform.localScale = new Vector3(0.8f, 0.8f, 1);
+    //    contentObject.transform.DOScale(1f, 0.1f).SetEase(Ease.InOutBack).SetUpdate(true);
+    //}
 
 }

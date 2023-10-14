@@ -17,7 +17,7 @@ public class UIToast : UIBase
     }
     public void OnEnable()
     {
-        PopupOpenAnimation(gameObject);
+        // PopupOpenAnimation(gameObject);
     }
    
     private void Awake()
