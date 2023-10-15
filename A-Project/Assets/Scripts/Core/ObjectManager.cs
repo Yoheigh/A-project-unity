@@ -9,6 +9,17 @@ using static Define;
 public class ObjectManager
 {
     public HashSet<BaseController> Controllers { get; } = new HashSet<BaseController>();
+    public PlayerController Player
+    {
+        get
+        {
+            if (player == null)
+                player = GameObject.FindObjectOfType<PlayerController>();
+
+            return player;
+        }
+    }
+    private PlayerController player;
 
     public Transform ControllerRoot
     {
@@ -39,11 +50,11 @@ public class ObjectManager
         Controllers.Clear();
     }
 
-    public T Spawn<T>(Vector3 position)where T : BaseController
+    public T Spawn<T>(Vector3 position) where T : BaseController
     {
         System.Type type = typeof(T);
 
-        if(type == typeof(BaseController))
+        if (type == typeof(BaseController))
         {
             GameObject go = Managers.Resource.Instantiate("Monster", pooling: true);
             BaseController mc = go.GetOrAddComponent<BaseController>();
@@ -68,7 +79,7 @@ public class ObjectManager
     {
         System.Type type = typeof(T);
 
-        if(type == typeof(BaseController))
+        if (type == typeof(BaseController))
         {
             Controllers.Remove(obj as BaseController);
             Managers.Resource.Destroy(obj.gameObject);

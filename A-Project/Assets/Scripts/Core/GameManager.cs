@@ -23,41 +23,18 @@ public class GameManager
         PlayerPrefs.SetInt("ISFIRST", 1);
     }
 
-    public int UserLevel
-    {
-        get { return _gameData.UserLevel;}
-        set { _gameData.UserLevel = value;}
-    }
-
-    public string UserName
-    {
-        get { return _gameData.UserName;}
-        set { _gameData.UserName = value; }
-    }
-
     public event Action OnResourcesChanged;
 
-    public int Gold
-    {
-        get { return _gameData.Gold;}
-        set 
-        { 
-            _gameData.Gold = value;
-            SaveGame();
-            OnResourcesChanged?.Invoke();
-        }
-    }
-
-    public int Dia
-    {
-        get { return _gameData.Dia; }
-        set
-        {
-            _gameData.Dia = value;
-            SaveGame();
-            OnResourcesChanged?.Invoke();
-        }
-    }
+    //public int Gold
+    //{
+    //    get { return _gameData.Gold;}
+    //    set 
+    //    { 
+    //        _gameData.Gold = value;
+    //        SaveGame();
+    //        OnResourcesChanged?.Invoke();
+    //    }
+    //}
 
     public bool BGMOn
     {
@@ -76,28 +53,28 @@ public class GameManager
         }
     }
 
-    public List<Item> Owenditem
-    {
-        get { return _gameData.Owenditem; }
-        set
-        {
-            _gameData.Owenditem = value;
-        }
-    }
+    //public List<Item> Owenditem
+    //{
+    //    get { return _gameData.Owenditem; }
+    //    set
+    //    {
+    //        _gameData.Owenditem = value;
+    //    }
+    //}
 
     public event Action ItemsChanged;
 
-    public Item AddEquipment(string key)
-    {
-        if (key.Equals("None"))
-            return null;
+    //public Item AddEquipment(string key)
+    //{
+    //    if (key.Equals("None"))
+    //        return null;
 
-        Item equip = new Item(key);
-        Owenditem.Add(equip);
-        ItemsChanged?.Invoke();
+    //    Item equip = new Item(key);
+    //    Owenditem.Add(equip);
+    //    ItemsChanged?.Invoke();
         
-        return equip;        
-    }
+    //    return equip;        
+    //}
 
     public Dictionary<int , int> ItemDictionary
     {
@@ -153,7 +130,6 @@ public class GameManager
         }               
     }
 
-
     public void SaveGame()
     {
         //GameData Class 를 json 으로 변환하여 저장 
@@ -181,7 +157,11 @@ public class GameManager
         if(data != null ) { _gameData = data; }
 
         return true;
+    }
 
+    public GameData GetSaveData()
+    {
+        return _gameData;
     }
 
 }

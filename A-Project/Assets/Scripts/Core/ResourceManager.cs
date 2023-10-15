@@ -80,7 +80,7 @@ public class ResourceManager
         };
     }
 
-    public void LoadAllAsync<T>(string label, Action<string, int, int> callback) where T : UnityEngine.Object
+    public void LoadAllAsync<T>(string label, Action<string, int, int> callback, Action callback2) where T : UnityEngine.Object
     {
         var OpHandle = Addressables.LoadResourceLocationsAsync(label, typeof(T));
 
@@ -98,6 +98,8 @@ public class ResourceManager
                     {
                         loadCount++;
                         callback?.Invoke(result.PrimaryKey, loadCount, totalCount);
+                        if (loadCount == totalCount)
+                            callback2?.Invoke();
                     });
                 }
                 else
@@ -106,6 +108,8 @@ public class ResourceManager
                     {
                         loadCount++;
                         callback?.Invoke(result.PrimaryKey, loadCount, totalCount);
+                        if (loadCount == totalCount)
+                            callback2?.Invoke();
                     });
                 }
             }

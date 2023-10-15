@@ -41,6 +41,17 @@ public class TickManager : MonoBehaviour
             OnTick!.Invoke(this, new OnTickEventArgs() { tick = tick });
         }
     }
+
+    public void AddTickEvent(EventHandler<OnTickEventArgs> action)
+    {
+        OnTick -= action;
+        OnTick += action;
+    }
+}
+
+public interface ITickEvent
+{
+    public abstract void OnTickEvent(object sender, OnTickEventArgs args);
 }
 
 public class OnTickEventArgs : EventArgs

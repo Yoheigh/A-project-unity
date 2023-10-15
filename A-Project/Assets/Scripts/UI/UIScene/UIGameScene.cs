@@ -8,7 +8,7 @@ using static Define;
 
 public class UIGameScene : UIScene, ITickEvent
 {
-    PlayerController player => Managers.Object.player;
+    PlayerController Player => Managers.Object.Player;
 
     public override bool Init()
     {
@@ -50,22 +50,22 @@ public class UIGameScene : UIScene, ITickEvent
 
     private void SetHPSlider()
     {
-        GetSlider((int)UI_SliderType.HP_Slider).value = player.Stat.HP / player.Stat.MaxHP;
+        GetSlider((int)UI_SliderType.HP_Slider).value = Player.Stat.HP / Player.Stat.MaxHP;
     }
 
     private void SetStaminaSlider()
     {
-        GetSlider((int)UI_SliderType.Stamina_Slider).value = player.Stat.Stamina / player.Stat.MaxStamina;
+        GetSlider((int)UI_SliderType.Stamina_Slider).value = Player.Stat.Stamina / Player.Stat.MaxStamina;
     }
 
     private void SetHungerSlider()
     {
-        GetSlider((int)UI_SliderType.Hunger_Slider).value = player.Stat.Hunger / player.Stat.MaxHunger;
+        GetSlider((int)UI_SliderType.Hunger_Slider).value = Player.Stat.Hunger / Player.Stat.MaxHunger;
     }
 
     private void SetTempertureSlider()
     {
-        GetSlider((int)UI_SliderType.Temperture_Slider).value = player.Stat.Temperture / player.Stat.MaxTemperture;
+        GetSlider((int)UI_SliderType.Temperture_Slider).value = Player.Stat.Temperture / Player.Stat.MaxTemperture;
     }
 
     void Update()

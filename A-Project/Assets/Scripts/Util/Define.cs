@@ -6,6 +6,13 @@ using static Util;
 
 public class Define
 {
+    public enum Difficulty
+    {
+        Easy,
+        Normal,
+        Hard,
+    }
+
     public enum Scene
     {
         Unknown,
@@ -40,11 +47,35 @@ public class Define
     {
         Click,
         Pressed,
+        PointerEnter,
+        PointerExit,
         PointerDown,
         PointerUp,
         BeginDrag,
         Drag,
         EndDrag,
+    }
+
+    public enum VoidEventType
+    {
+        OnHPChange,
+        OnStaminaChange,
+        OnHungerChange,
+        OnTempertureChange
+    }
+
+    public enum IntEventType
+    {
+
+    }
+
+    public enum UI_SliderType
+    {
+        HP_Slider,
+        Stamina_Slider,
+        Hunger_Slider,
+        Temperture_Slider,
+
     }
 
     public enum ObjectType
