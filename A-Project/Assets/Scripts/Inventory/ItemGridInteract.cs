@@ -9,7 +9,14 @@ public class ItemGridInteract : UIPopup
 
     void Start()
     {
-        BindEvent(gameObject, () => { Debug.Log("UI 감지"); }, null, Define.UIEvent.PointerDown);
-        BindEvent(gameObject, () => { Debug.Log("UI 범위 벗어남"); }, null, Define.UIEvent.PointerUp);
+        BindEvent(gameObject, () => { Debug.Log("UI 감지"); }, null, Define.UIEvent.PointerEnter);
+        BindEvent(gameObject, () => { Debug.Log("UI 범위 벗어남"); }, null, Define.UIEvent.PointerExit);
+        BindEvent(gameObject, () => {
+            Vector2 mousePos = Camera.main.ViewportToScreenPoint(Input.mousePosition);
+            Debug.Log(mousePos);
+            Vector2Int tilePos = itemBox.GetTileMousePosition(mousePos);
+            
+            itemBox.PickUpItem(tilePos.x, tilePos.y);
+        }, (args) => { Debug.Log("드래그중임"); }, Define.UIEvent.PointerDown);
     }
 }

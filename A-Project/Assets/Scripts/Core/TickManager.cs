@@ -38,7 +38,7 @@ public class TickManager : MonoBehaviour
         {
             tickTimer -= TICK_TIMER;
             tick++;
-            OnTick!.Invoke(this, new OnTickEventArgs() { tick = tick });
+            OnTick?.Invoke(this, new OnTickEventArgs() { tick = tick });
         }
     }
 
