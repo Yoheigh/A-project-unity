@@ -18,18 +18,26 @@ public class PlayerStatController : MonoBehaviour
     }
 
     // 체력
+    public float MaxHP = 100;
+    public float MinHP = 0;
     public float HP
     { get { return hp; } set {; } }
 
     // 스태미너
+    public float MaxStamina = 100;
+    public float MinStamina = 0;
     public float Stamina
     { get { return stamina; } set {; } }
 
     // 허기
+    public float MaxHunger = 100;
+    public float MinHunger = 0;
     public float Hunger
     { get { return hunger; } set {; } }
 
     // 온도
+    public float MaxTemperture = 100;
+    public float MinTemperture = 0;
     public float Temperture
     { get { return temperture; } set {; } }
 

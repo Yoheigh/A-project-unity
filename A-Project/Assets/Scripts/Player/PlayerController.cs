@@ -6,6 +6,7 @@ using static Define;
 
 public class PlayerController : MonoBehaviour
 {
+    public PlayerStatController Stat;
     private PlayerMove move;
     private StateMachine<PlayerController> FSM;
     private State<PlayerController>[] States; 
