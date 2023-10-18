@@ -88,8 +88,8 @@ public class PlayerMove : MonoBehaviour
                     moveSpeed = 1.7f;
                     break;
                 default:
-                    ac.ChangeAnimationLayer(AnimationLayerType.Snow, 0, 0.9f);
-                    moveSpeed = 2.5f;
+                    ac.ChangeAnimationLayer(AnimationLayerType.Snow, 0, 0.75f);
+                    moveSpeed = 3.4f;
                     break;
             }
         }

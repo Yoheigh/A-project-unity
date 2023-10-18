@@ -32,6 +32,9 @@ public class FootIKTest : MonoBehaviour
     {
         if(anim)
         {
+            _LeftFootPos = anim.GetIKPosition(AvatarIKGoal.LeftFoot);
+            _RightFootPos = anim.GetIKPosition(AvatarIKGoal.RightFoot);
+
             anim.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1f); // float 부분에 커브 넣거나 트윈 넣거나 하면 됨
             anim.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1f);
 
@@ -70,7 +73,7 @@ public class FootIKTest : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(anim.GetIKPosition(AvatarIKGoal.LeftFoot) + Vector3.up, anim.GetIKPosition(AvatarIKGoal.LeftFoot) + Vector3.down);
-        Gizmos.DrawLine(anim.GetIKPosition(AvatarIKGoal.RightFoot) + Vector3.up, anim.GetIKPosition(AvatarIKGoal.RightFoot) + Vector3.down);
+        Gizmos.DrawLine(_LeftFootPos + Vector3.up, _LeftFootPos + Vector3.down);
+        Gizmos.DrawLine(_RightFootPos + Vector3.up, _RightFootPos + Vector3.down);
     }
 }
