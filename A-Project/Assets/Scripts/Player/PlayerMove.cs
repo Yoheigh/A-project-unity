@@ -10,33 +10,25 @@ public class PlayerMove : MonoBehaviour
     // 기본 이동속도
     public float moveSpeed = 1f;
 
-    // 회전 애니메이션 속도
+    // 회전 속도
     public float turnSmoothTime = 0.1f;
 
-    // 애니메이션 재생 속도 조정 수치
-    public float _animModifier = -0.3f;
-
     string currentPlane = string.Empty;
-    int currentAnimLayer = 1;
-
-    int _changeLayer;
-    float _changeWeight;
     float turnSmoothVelocity;
 
     CharacterController controller;
+    AnimationController ac = new AnimationController();
+    Animator anim => ac.anim;
     Transform cam;
     CinemachinePostProcessing volume;
-
-    Animator anim;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        anim = GetComponentInChildren<Animator>();
+        ac.anim = GetComponentInChildren<Animator>();
         volume = FindObjectOfType<CinemachinePostProcessing>();
 
         anim.SetLayerWeight(1, 1f);
-        anim.speed = anim.speed + _animModifier;
 
         cam = Camera.main.transform;
     }
@@ -46,7 +38,9 @@ public class PlayerMove : MonoBehaviour
     {
         PlaneCheck();
         Move();
-        UpdateAnimation();
+        ac.UpdateAnimation();
+
+        if (Input.GetKeyDown(KeyCode.U)) { ac.Play(AnimationUpperBody.HandWave); }
 
         // controller.Move(new Vector3(0f, -2f, 0f) * Time.deltaTime);
     }
@@ -61,7 +55,7 @@ public class PlayerMove : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-            Vector3 MoveDir = (Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward).normalized;
+            Vector3 MoveDir = (Quaternion.Euler(0f, angle, 0f) * Vector3.forward).normalized;
 
             // moveSpeed를 지형 지물에 따라서 변경해줘야 함
             controller.Move(MoveDir * moveSpeed * Time.deltaTime);
@@ -90,35 +84,15 @@ public class PlayerMove : MonoBehaviour
             switch (hit.collider.gameObject.tag)
             {
                 case "Snow":
-                    AnimationChange(1, 1);
-                    moveSpeed = 1f;
+                    ac.ChangeAnimationLayer(AnimationLayerType.Snow, 1, 0.6f);
+                    moveSpeed = 1.7f;
                     break;
                 default:
-                    AnimationChange(1, 0);
-                    moveSpeed = 1.8f;
+                    ac.ChangeAnimationLayer(AnimationLayerType.Snow, 0, 0.9f);
+                    moveSpeed = 2.5f;
                     break;
             }
         }
-    }
-
-    void AnimationChange(int layerIndex, float weight)
-    {
-        _changeLayer = layerIndex;
-        _changeWeight = weight;
-    }
-
-    void UpdateAnimation()
-    {
-        float tempWeight = anim.GetLayerWeight(currentAnimLayer);
-        if (_changeWeight >= tempWeight)
-        {
-            tempWeight += Time.deltaTime;
-        }
-        else if (_changeWeight <= tempWeight)
-        {
-            tempWeight -= Time.deltaTime;
-        }
-        anim.SetLayerWeight(_changeLayer, tempWeight);
     }
 
     private void OnDrawGizmos()

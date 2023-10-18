@@ -394,7 +394,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   turnSmoothTime: 0.1
-  _animModifier: -0.3
 --- !u!114 &88994566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,6 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f16befd6d548ac46bd5252d9e748fc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Stat: {fileID: 0}
 --- !u!1 &99736187
 GameObject:
   m_ObjectHideFlags: 0
@@ -2607,7 +2607,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798906113}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.08134871, y: 0.60652757, z: -0.06258195, w: 0.78840995}
+  m_LocalRotation: {x: 0.08134871, y: 0.60652757, z: -0.06258194, w: 0.78841}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3000,8 +3000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d73b56cb68d1c6e439adb8ad7f202edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TILE_SIZE_WIDTH: 16
-  TILE_SIZE_HEIGHT: 16
+  selectedItemSlot: {fileID: 0}
 --- !u!114 &906189620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3014,7 +3013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b2af7168485ad246884d8a9d87cf0c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedItemBox: {fileID: 906189619}
 --- !u!1 &931036162
 GameObject:
   m_ObjectHideFlags: 0
@@ -10554,7 +10552,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804781245}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20893be3f618b274a9e707857fad5619, type: 3}
   m_Name: 
