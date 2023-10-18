@@ -4,20 +4,15 @@ using UnityEngine;
 
 public class EntityController : MonoBehaviour
 {
-    public AnimationController Anim;
+    public AnimationController AC;
 
     private bool _init = false;
-
-    void Start()
-    {
-        
-    }
 
     public virtual bool Init()
     {
         if(_init == false)
         {
-
+            AC = new AnimationController();
             return true;
         }
         return _init;
