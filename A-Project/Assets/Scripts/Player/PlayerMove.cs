@@ -22,7 +22,7 @@ public class PlayerMove : MonoBehaviour
     Transform cam;
     CinemachinePostProcessing volume;
 
-    void Start()
+    public void Init()
     {
         controller = GetComponent<CharacterController>();
         AC.anim = GetComponentInChildren<Animator>();

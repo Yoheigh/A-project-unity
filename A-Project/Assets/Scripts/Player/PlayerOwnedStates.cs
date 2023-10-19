@@ -3,13 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Define;
 
+public enum PlayerState
+{
+    Default,
+    Ragdoll,
+    Falling,
+    Boarding,
+    Resting,
+    Dialoging,
+}
+
 namespace PlayerOwnedStates
 {
     public class Default : State<PlayerController>
     {
         public override void Enter(PlayerController entity) 
-        { 
-
+        {
+            entity.Interact.FOV.StartFindTargets();
         }
         public override void Execute(PlayerController entity) 
         {
@@ -18,6 +28,16 @@ namespace PlayerOwnedStates
             entity.AC.UpdateAnimation();
 
             if (Input.GetKeyDown(KeyCode.U)) { entity.AC.Play(AnimationUpperBody.HandWave); }
+        }
+        public override void Exit(PlayerController entity) { }
+    }
+
+    public class Ragdoll : State<PlayerController>
+    {
+        public override void Enter(PlayerController entity) { }
+        public override void Execute(PlayerController entity)
+        {
+
         }
         public override void Exit(PlayerController entity) { }
     }

@@ -6,13 +6,16 @@ using static Util;
 
 public class Define
 {
+    #region GameSetting
     public enum Difficulty
     {
         Easy,
         Normal,
         Hard,
     }
+    #endregion
 
+    #region System
     public enum Scene
     {
         Unknown,
@@ -28,7 +31,9 @@ public class Define
         Effect,
         Max,
     }
+    #endregion
 
+    #region Player
     public enum PlayerState
     {
         Normal,
@@ -43,6 +48,15 @@ public class Define
         Slippery
     }
 
+    public enum PlayerInteractType
+    {
+        Item,
+        ItemBox,
+        NPC,
+    }
+    #endregion
+
+    #region Event
     public enum UIEvent
     {
         Click,
@@ -68,7 +82,9 @@ public class Define
     {
 
     }
+    #endregion
 
+    #region UI
     public enum UI_SliderType
     {
         HP_Slider,
@@ -77,7 +93,9 @@ public class Define
         Temperture_Slider,
 
     }
+    #endregion
 
+    #region Object
     public enum ObjectType
     {
         Player,
@@ -90,6 +108,7 @@ public class Define
         Food,
         Tool
     }
+    #endregion
 
     public static int ID_BRONZE_KEY = 201;
     public static int ID_SILVER_KEY = 202;

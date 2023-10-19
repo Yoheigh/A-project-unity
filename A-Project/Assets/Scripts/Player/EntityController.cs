@@ -12,7 +12,6 @@ public class EntityController : MonoBehaviour
     {
         if(_init == false)
         {
-            AC = new AnimationController();
             return true;
         }
         return _init;

@@ -19,25 +19,25 @@ public class PlayerStatController : MonoBehaviour
 
     // 체력
     public float MaxHP = 100;
-    public float MinHP = 0;
+    public const float MinHP = 0;
     public float HP
     { get { return hp; } set {; } }
 
     // 스태미너
     public float MaxStamina = 100;
-    public float MinStamina = 0;
+    public const float MinStamina = 0;
     public float Stamina
     { get { return stamina; } set {; } }
 
     // 허기
     public float MaxHunger = 100;
-    public float MinHunger = 0;
+    public const float MinHunger = 0;
     public float Hunger
     { get { return hunger; } set {; } }
 
     // 온도
     public float MaxTemperture = 100;
-    public float MinTemperture = 0;
+    public const float MinTemperture = 0;
     public float Temperture
     { get { return temperture; } set {; } }
 
@@ -59,38 +59,37 @@ public class PlayerStatController : MonoBehaviour
     private float tempertureDecreaseRate = 0.02f;
     private float hungerDecreaseRate = 0.02f;
 
-    public void Start()
-    {
-        Init();
-    }
-
     private void Init()
     {
 
     }
 
-    // HP가 변경될 때 적용하는 함수
-    public void UpdateHP()
+    public void CaculateHP()
     {
+        hpDecayPerSecond = 0f;
+        if (hunger == 0)     hpDecayPerSecond += -0.5f;
+        if (temperture == 0) hpDecayPerSecond += -0.5f;
 
+        hp += hpDecayPerSecond * Time.deltaTime;
     }
 
-    // HP가 변경될 때 적용하는 함수
-    public void UpdateStamina()
+    public void CalculateStamina()
     {
-       stamina = Time.deltaTime * stamina;
+        stamina += (staminaDecreaseRate + staminaDecayPerSecond) * Time.deltaTime;
     }
 
-    // HP가 변경될 때 적용하는 함수
-    public void UpdateTemperture()
+    public void CaculateTemperture()
     {
+        tempertureDecayPerSecond = 0f;
 
+        temperture += (tempertureDecreaseRate + tempertureDecayPerSecond) * Time.deltaTime;
     }
 
-    // HP가 변경될 때 적용하는 함수
-    public void UpdateHunger()
+    public void CalculateHunger()
     {
+        hungerDecayPerSecond = 0f;
 
+        hunger += (hungerDecreaseRate + hungerDecayPerSecond) * Time.deltaTime;
     }
 
     // 섭씨 화씨 변경
