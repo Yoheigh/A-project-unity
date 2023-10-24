@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameSceneManager : MonoBehaviour
+public class SceneManager : MonoBehaviour
 {
-    private static GameSceneManager instance;
-    public static GameSceneManager Instance { get { return instance; } }
+    private static SceneManager instance;
+    public static SceneManager Instance { get { return instance; } }
 
     public Dictionary<string, BaseScene> sceneDictionary = new Dictionary<string, BaseScene>();
     private string currentSceneName = null;
@@ -14,47 +14,48 @@ public class GameSceneManager : MonoBehaviour
     [RuntimeInitializeOnLoadMethod]
     public static void Init()
     {
-        GameObject _instance = GameObject.Find($"[{nameof(GameSceneManager)}]");
+        GameObject _instance = GameObject.Find($"[{nameof(SceneManager)}]");
         if (_instance == null)
-            _instance = new GameObject($"[{nameof(GameSceneManager)}]");
+            _instance = new GameObject($"[{nameof(SceneManager)}]");
 
-        instance = _instance.GetOrAddComponent<GameSceneManager>();
+        instance = _instance.GetOrAddComponent<SceneManager>();
         DontDestroyOnLoad(instance.gameObject);
 
-        Managers.Resource.LoadAllAsync<Object>("Preload", null, () =>
+        Managers.Resource.LoadAllAsync<Object>("Preload", (key, count, total) => 
+                                              { Debug.Log($"{key} : {count} / {total}"); }, () =>
         {
             Debug.Log("·Îµù ³¡!");
-            Managers.UI.ShowSceneUI<UIGameScene>();
-            Managers.UI.SceneUI.Init();
+            // Managers.Scene.RegisterScene()
+            //Managers.UI.ShowSceneUI<UIGameScene>();
+            //Managers.UI.SceneUI.Init();
         });
     }
 
     private void Awake()
     {
-
         if (currentSceneName == null)
         {
             currentSceneName = "Login";
         }
         else
         {
-            currentSceneName = SceneManager.GetActiveScene().name;
+            currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         }
 
         //Managers.Data.LoadSceneData(Define.Scene.Pre);
-        //SceneManager.sceneLoaded += instance.LoadedScene;
-        //instance.LoadedScene(SceneManager.GetActiveScene(), LoadSceneMode.Single);
-        Managers.Game.Init();
+        //UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+        //OnSceneLoaded(UnityEngine.SceneManagement.SceneManager.GetActiveScene(), LoadSceneMode.Single);
+        //Managers.Game.Init();
     }
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
 
@@ -74,7 +75,7 @@ public class GameSceneManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
     }
     public string GetCurrentSceneName()
     {
@@ -119,31 +120,7 @@ public class GameSceneManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        currentSceneName = SceneManager.GetActiveScene().name;
+        currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         RegisterScene(currentSceneName);
-    }
-}
-
-public class BaseScene : MonoBehaviour
-{
-    public string sceneName;
-    public int sceneIndex;
-    public bool sceneDataShow;
-    public string sceneData0, sceneData1;
-    public string sceneType;
-
-    private void Awake()
-    {
-        Init();
-    }
-
-    protected virtual void Init()
-    {
-
-    }
-
-    protected virtual void Clear()
-    {
-
     }
 }

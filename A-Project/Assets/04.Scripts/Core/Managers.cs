@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Managers : MonoBehaviour
@@ -24,6 +25,11 @@ public class Managers : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        Sound.Init();
+    }
+
     PoolManager _pool = new PoolManager();
     ResourceManager _resource = new ResourceManager();
     ObjectManager _object = new ObjectManager();
@@ -41,6 +47,7 @@ public class Managers : MonoBehaviour
     public static EventManager Event { get { return Instance?._event; } }
     public static UIManager UI { get { return Instance?._ui; } }
     public static SoundManager Sound { get { return Instance?._sound; } }
+    public static SceneManager Scene { get { return SceneManager.Instance; } }
     public static CoroutineManager CO { get { return CoroutineManager.Instance; } }
-    public static TickManager Tick { get { return TickManager.Instance;  } }
+    public static TickManager Tick { get { return TickManager.Instance; } }
 }

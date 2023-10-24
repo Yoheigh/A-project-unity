@@ -33,4 +33,9 @@ public class DataManager
     //    Entity_ItemData.Param targetParam = entity_ItemData.sheets[0].list.Find(param => param.index == index);
     //    return targetParam;
     //}
+
+    public void LoadSceneData(Define.Scene type)
+    {
+        // Managers.Resource.Load<>
+    }
 }

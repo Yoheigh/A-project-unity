@@ -25,6 +25,11 @@ public class TickManager : MonoBehaviour
     private int tick;
     private float tickTimer;
 
+    private void Start()
+    {
+        AddTickEvent(TestTickEvent);
+    }
+
     void Update()
     {
         // 특별한 상황에 멈추도록 해야 함
@@ -46,6 +51,11 @@ public class TickManager : MonoBehaviour
     {
         OnTick -= action;
         OnTick += action;
+    }
+
+    void TestTickEvent(object sender, OnTickEventArgs args)
+    {
+        if (args.tick % 5 == 0) Debug.Log(args.tick);
     }
 }
 
