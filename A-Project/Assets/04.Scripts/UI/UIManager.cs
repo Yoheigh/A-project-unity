@@ -198,7 +198,7 @@ public class UIManager
 
     public void RefreshTimeScale()
     {
-        if (SceneManager.GetActiveScene().name != Define.Scene.GameScene.ToString())
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != Define.Scene.GameScene.ToString())
         {
             Time.timeScale = 1;
             return;

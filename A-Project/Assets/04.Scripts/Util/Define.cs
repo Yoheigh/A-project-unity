@@ -16,20 +16,12 @@ public class Define
     #endregion
 
     #region System
-    public enum Scene
-    {
-        Unknown,
-        TitleScene,
-        LobbyScene,
-        GameScene,
-    }
-
     public enum Sound
     {
         Bgm,
         SubBgm,
         Effect,
-        Max,
+        Max = 10,
     }
     #endregion
 
@@ -53,6 +45,17 @@ public class Define
         Item,
         ItemBox,
         NPC,
+    }
+    #endregion
+
+    #region Scene
+    public enum Scene
+    {
+        Pre,
+        Unknown,
+        TitleScene,
+        LobbyScene,
+        GameScene,
     }
     #endregion
 
