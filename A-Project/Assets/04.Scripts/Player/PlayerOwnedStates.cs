@@ -28,6 +28,7 @@ namespace PlayerOwnedStates
             entity.AC.UpdateAnimation();
 
             if (Input.GetKeyDown(KeyCode.U)) { entity.AC.Play(AnimationUpperBody.HandWave); }
+            if (Input.GetKeyDown(KeyCode.I)) { entity.AC.Play(AnimationUpperBody.Drink); }
         }
         public override void Exit(PlayerController entity) { }
     }

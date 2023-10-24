@@ -70,11 +70,11 @@ public class PlayerMove : MonoBehaviour
             switch (hit.collider.gameObject.tag)
             {
                 case "Snow":
-                    AC.ChangeAnimationLayer(AnimationLayerType.Snow, 1, 0.6f);
+                    AC.ChangeAnimationLayer(AnimationLayerType.Snow, 1, 1f);
                     moveSpeed = 1.7f;
                     break;
                 default:
-                    AC.ChangeAnimationLayer(AnimationLayerType.Snow, 0, 0.75f);
+                    AC.ChangeAnimationLayer(AnimationLayerType.Snow, 0, 1f);
                     moveSpeed = 3.4f;
                     break;
             }

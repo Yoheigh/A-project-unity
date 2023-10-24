@@ -2,17 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public enum AnimationLayerType
 {
     Default = 0,
-    UpperBody = 1,
-    Snow = 2,
+    Snow = 1,
+    UpperBody = 2,
 }
 
 public enum AnimationUpperBody
 {
     HandWave,
+    Drink,
+
 }
 
 public enum AnimationDialogue
@@ -35,7 +38,6 @@ public class AnimationController
     int currentAnimLayer = 0;
     float weightToChange;
     float speedToChange;
-    float currentTime = 0;
 
     public void UpdateAnimation()
     {
@@ -46,7 +48,7 @@ public class AnimationController
         anim.speed = speed;
     }
 
-    private float LerpFloat(float startValue, float endValue, float lerpTime = 1f)
+    private float LerpFloat(float startValue, float endValue)
     {
         float difference = endValue - startValue;
 
@@ -56,9 +58,6 @@ public class AnimationController
         }
 
         startValue += (difference > 0) ? Time.deltaTime : -Time.deltaTime;
-
-        if(currentTime < lerpTime)
-            currentTime += Time.deltaTime;
 
         return startValue;
     }
@@ -92,22 +91,30 @@ public class AnimationController
         speedToChange = speed;
     }
 
-    public void Play(AnimationUpperBody animation)
+    public void Play(AnimationUpperBody animation, float startLerpTime = 0.5f, float endLerpTime = 0.8f)
     {
         if (lastAnim != null)
             CoroutineManager.StopCoroutine(lastAnim);
 
-        lastAnim = CoroutineManager.StartCoroutine(PlayCO(animation));
+        lastAnim = CoroutineManager.StartCoroutine(PlayCO(animation, startLerpTime, endLerpTime));
     }
 
-    IEnumerator PlayCO(AnimationUpperBody animation)
+    IEnumerator PlayCO(AnimationUpperBody animation, float startLerpTime = 0.5f, float endLerpTime = 0.8f)
     {
-        anim.SetLayerWeight((int)AnimationLayerType.UpperBody, 1f);
+        var clips = anim.GetCurrentAnimatorClipInfo((int)AnimationLayerType.UpperBody);
         anim.Play(Enum.GetName(typeof(AnimationUpperBody), animation), (int)AnimationLayerType.UpperBody, 0f);
-        var clip = anim.GetCurrentAnimatorClipInfo((int)AnimationLayerType.UpperBody);
 
-        yield return new WaitForSeconds(clip[0].clip.length);
+        float lerpTime = 0f;
 
-        anim.SetLayerWeight((int)AnimationLayerType.UpperBody, 0f);
+        DOTween.To(() => lerpTime, x => lerpTime = x, 1f, startLerpTime).onUpdate = () =>
+        {
+            anim.SetLayerWeight((int)AnimationLayerType.UpperBody, lerpTime);
+        };
+
+        yield return new WaitForSeconds(clips[0].clip.length - endLerpTime);
+
+        DOTween.To(() => lerpTime, x => lerpTime = x, 0f, endLerpTime).onUpdate = () =>
+        {
+            anim.SetLayerWeight((int)AnimationLayerType.UpperBody, lerpTime); };
     }
 }
