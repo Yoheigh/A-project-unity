@@ -6,13 +6,23 @@ using UnityEngine;
 using UnityEngine.UI;
 using static Define;
 
-public class UIGameScene : UIScene, ITickEvent
+public class UIGameStatus : UIScene, ITickEvent
 {
     PlayerController Player => Managers.Object.Player;
 
+    public enum UI_SliderType
+    {
+        HP_Slider,
+        Stamina_Slider,
+        Hunger_Slider,
+        Temperture_Slider,
+
+    }
+
     public override bool Init()
     {
-        base.Init();
+        if (base.Init() == false)
+            return false;
 
         //BindObject(typeof(GameObject));
         BindSlider(typeof(UI_SliderType));
@@ -66,10 +76,5 @@ public class UIGameScene : UIScene, ITickEvent
     private void SetTempertureSlider()
     {
         GetSlider((int)UI_SliderType.Temperture_Slider).value = Player.Stat.Temperture / Player.Stat.MaxTemperture;
-    }
-
-    void Update()
-    {
-
     }
 }

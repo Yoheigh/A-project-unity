@@ -16,7 +16,7 @@ public static class Extension
         ,Action<BaseEventData> dragAction = null
         ,Define.UIEvent type = Define.UIEvent.Click)
     {
-        // UIBase.BindEvent(go, action, dragAction, type);
+        UIBase.BindEvent(go, action, dragAction, type);
     }
 
     public static bool IsValid(this GameObject go)

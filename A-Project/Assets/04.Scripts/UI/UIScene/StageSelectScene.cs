@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StageSelectScene : UIGameScene
+public class StageSelectScene : UIGameStatus
 {
     private void Start()
     {

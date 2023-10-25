@@ -115,6 +115,7 @@ public class UIManager
         GameObject go = Managers.Resource.Instantiate($"{name}");
         T popup = Util.GetOrAddComponent<T>(go);
         _popupStack.Push(popup);
+        Debug.Log($"{_popupStack.Peek()} 이건 {popup}이야");
 
         go.transform.SetParent(Root.transform);
 
@@ -130,6 +131,7 @@ public class UIManager
 
         if (_popupStack.Peek() != popup)
         {
+            Debug.Log($"{_popupStack.Peek()} 이건 {popup}이 아니라는데?");
             Debug.Log("Close Popup Failed!");
             return;
         }

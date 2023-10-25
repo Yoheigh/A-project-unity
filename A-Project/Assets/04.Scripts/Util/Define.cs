@@ -86,23 +86,12 @@ public class Define
         OnHPChange,
         OnStaminaChange,
         OnHungerChange,
-        OnTempertureChange
+        OnTempertureChange,
     }
 
     public enum IntEventType
     {
-
-    }
-    #endregion
-
-    #region UI
-    public enum UI_SliderType
-    {
-        HP_Slider,
-        Stamina_Slider,
-        Hunger_Slider,
-        Temperture_Slider,
-
+        OnSubtitleChange,
     }
     #endregion
 
