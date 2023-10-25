@@ -27,7 +27,7 @@ public class TickManager : MonoBehaviour
 
     private void Start()
     {
-        AddTickEvent(TestTickEvent);
+        // AddTickEvent(TestTickEvent);
     }
 
     void Update()
@@ -53,10 +53,10 @@ public class TickManager : MonoBehaviour
         OnTick += action;
     }
 
-    void TestTickEvent(object sender, OnTickEventArgs args)
-    {
-        if (args.tick % 5 == 0) Debug.Log(args.tick);
-    }
+    //void TestTickEvent(object sender, OnTickEventArgs args)
+    //{
+    //    if (args.tick % 5 == 0) Debug.Log(args.tick);
+    //}
 }
 
 public interface ITickEvent

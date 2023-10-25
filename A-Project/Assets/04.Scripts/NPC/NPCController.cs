@@ -42,7 +42,6 @@ public class NPCController : EntityController, IInteractable
         if (Stat.GlobalStatus == Define.CharacterGlobalStatus.Normal)
         {
             Vector2 next = Navi.GetNextLocation();
-            Debug.Log(next);
             Move.Move(next.x, next.y);
         }
         else
@@ -53,5 +52,6 @@ public class NPCController : EntityController, IInteractable
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) { Stat.ChangeGlobalStatus(Define.CharacterGlobalStatus.Normal); }
         if (Input.GetKeyDown(KeyCode.Alpha2)) { Stat.ChangeGlobalStatus(Define.CharacterGlobalStatus.Dialoguing); }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) { Managers.Event.Invoke(Define.IntEventType.OnSubtitleChange, 1); }
     }
 }

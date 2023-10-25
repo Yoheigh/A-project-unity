@@ -34,10 +34,11 @@ public abstract class UIBase : MonoBehaviour
         UnityEngine.Object[] objects = new UnityEngine.Object[names.Length];
         foreach(string name in names)
         {
-            Debug.Log(name + " : 등록된 UI들");
+            //Debug.Log(name + " : 등록된 UI들");
         }
         _objects.Add(typeof(T), objects);
-        Debug.Log(objects + "등록 완료");
+        
+        //Debug.Log(objects + "등록 완료");
 
         for (int i = 0; i < names.Length; i++)
         {
