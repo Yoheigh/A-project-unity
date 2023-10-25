@@ -9,6 +9,8 @@ public class WorldScene : BaseScene
         var sub = Managers.UI.ShowPopupUI<UIDialogueSubtitle>();
         var ui = Managers.UI.ShowSceneUI<UIGameStatus>();
 
+        //var sub = Managers.UI.MakeSubItem<UIDialogueSubtitle>(Managers.UI.Root.transform, null, true);
+        // #7 ¿ÃΩ¥
         sub.Init();
         ui.Init();
     }
