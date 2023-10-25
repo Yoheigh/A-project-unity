@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1352479827763973903}
   - component: {fileID: 4575108759324660525}
   m_Layer: 6
-  m_Name: Particle System
+  m_Name: SnowSlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
