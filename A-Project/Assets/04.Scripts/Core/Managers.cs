@@ -8,7 +8,7 @@ public class Managers : MonoBehaviour
     static Managers s_instance;
     static Managers Instance { get { Init(); return s_instance; } }
 
-    [RuntimeInitializeOnLoadMethod]
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
     public static void Init()
     {
         if (s_instance == null)
@@ -25,8 +25,9 @@ public class Managers : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
+        Event.Init();
         Sound.Init();
     }
 

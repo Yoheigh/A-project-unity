@@ -11,7 +11,7 @@ public class SceneManager : MonoBehaviour
     public Dictionary<string, BaseScene> sceneDictionary = new Dictionary<string, BaseScene>();
     private string currentSceneName = null;
 
-    [RuntimeInitializeOnLoadMethod]
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
     public static void Init()
     {
         GameObject _instance = GameObject.Find($"[{nameof(SceneManager)}]");
@@ -21,13 +21,13 @@ public class SceneManager : MonoBehaviour
         instance = _instance.GetOrAddComponent<SceneManager>();
         DontDestroyOnLoad(instance.gameObject);
 
-        Managers.Resource.LoadAllAsync<Object>("Preload", (key, count, total) => 
+        Managers.Resource.LoadAllAsync<Object>("Preload", (key, count, total) =>
                                               { Debug.Log($"{key} : {count} / {total}"); }, () =>
         {
             Debug.Log("·Îµù ³¡!");
-            // Managers.Scene.RegisterScene()
-            //Managers.UI.ShowSceneUI<UIGameScene>();
-            //Managers.UI.SceneUI.Init();
+
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += Managers.Scene.OnSceneLoaded;
+            Managers.Scene.OnSceneLoaded(UnityEngine.SceneManagement.SceneManager.GetActiveScene(), LoadSceneMode.Single);;
         });
     }
 
@@ -35,33 +35,30 @@ public class SceneManager : MonoBehaviour
     {
         if (currentSceneName == null)
         {
-            currentSceneName = "Login";
+            currentSceneName = "WorldScene";
         }
         else
         {
             currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         }
 
-        //Managers.Data.LoadSceneData(Define.Scene.Pre);
-        //UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
-        //OnSceneLoaded(UnityEngine.SceneManagement.SceneManager.GetActiveScene(), LoadSceneMode.Single);
-        //Managers.Game.Init();
+        // Managers.Data.LoadSceneData(Define.Scene.Pre);
+        // Managers.Game.Init();
     }
 
-    private void OnEnable()
-    {
-        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
-    }
+    //private void OnEnable()
+    //{
+    //    UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+    //}
 
     private void OnDisable()
     {
         UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-
     public BaseScene GetSceneClass(string sceneName)
     {
-        //if (sceneName == "Login") return gameObject.AddComponent<LoginScene>();
+        if (sceneName == "WorldScene") return gameObject.AddComponent<WorldScene>();
         //if (sceneName == "Lobby") return gameObject.AddComponent<LobbyScene>();
 
         return null;
