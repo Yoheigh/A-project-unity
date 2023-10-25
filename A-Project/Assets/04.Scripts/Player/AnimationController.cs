@@ -29,6 +29,11 @@ public class AnimationController
 {
     public Animator anim;
 
+    // Move, Interact 별로 수치가 있는데
+    // Move에서는 float 수치를 여기에 넘겨주면서 애니메이션이 나오고
+    // Interact 에서는 트리거 위주로 함수를 실행시키면서 애니메이션이 나오고
+    // 그렇다면 Move와 Interact은 전부 Animation으로 이어져있도록 해야하는데...
+    
     // 애니메이션 재생 속도 조정 수치
     // public float _animModifier = -0.3f;
 

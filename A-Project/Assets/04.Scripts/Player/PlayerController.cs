@@ -22,13 +22,14 @@ public class PlayerController : EntityController
     public override bool Init()
     {
         AC = new AnimationController();
+        AC.anim = GetComponentInChildren<Animator>();
 
         Move = GetComponent<PlayerMove>();
         Interact = GetComponent<PlayerInteract>();
         Stat = GetComponent<PlayerStatController>();
 
         Move.Init();
-        // Stat.Init();
+        Stat.Init();
         Interact.Init();
 
         FSM = new StateMachine<PlayerController>();

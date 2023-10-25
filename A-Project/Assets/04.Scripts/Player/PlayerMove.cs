@@ -20,20 +20,20 @@ public class PlayerMove : MonoBehaviour
 
     CharacterController controller;
     Transform cam;
-    CinemachinePostProcessing volume;
+
+    // Animation Parameter
+    public float _animMoveSpeed { get; private set; }
 
     public void Init()
     {
         controller = GetComponent<CharacterController>();
-        AC.anim = GetComponentInChildren<Animator>();
-        volume = FindObjectOfType<CinemachinePostProcessing>();
 
         cam = Camera.main.transform;
     }
 
-    public void Move()
+    public void Move(float xInput, float yInput)
     {
-        Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        Vector2 direction = new Vector2(xInput, yInput).normalized;
 
         if (direction.magnitude > 0.1f)
         {

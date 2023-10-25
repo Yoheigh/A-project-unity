@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Define;
 
 public class PlayerStatController : MonoBehaviour
 {
@@ -43,6 +44,8 @@ public class PlayerStatController : MonoBehaviour
 
     public bool _CelsiusToFahrenheit = false;
 
+    public CharacterGlobalStatus GlobalStatus { get; private set; }
+
     // private variable
     private float hp;
     private float stamina;
@@ -59,12 +62,30 @@ public class PlayerStatController : MonoBehaviour
     private float tempertureDecreaseRate = 0.02f;
     private float hungerDecreaseRate = 0.02f;
 
-    private void Init()
+    public void Init()
     {
-
+        ChangeGlobalStatus(CharacterGlobalStatus.Normal);
     }
 
-    public void CaculateHP()
+    private void Update()
+    {
+        CaculateStatAll();
+    }
+
+    public void ChangeGlobalStatus(CharacterGlobalStatus status)
+    {
+        GlobalStatus = status;
+    }
+
+    public void CaculateStatAll()
+    {
+        CalculateHP();
+        CalculateStamina();
+        CalculateTemperture();
+        CalculateHunger();
+    }
+
+    public void CalculateHP()
     {
         hpDecayPerSecond = 0f;
         if (hunger == 0)     hpDecayPerSecond += -0.5f;
@@ -78,7 +99,7 @@ public class PlayerStatController : MonoBehaviour
         stamina += (staminaDecreaseRate + staminaDecayPerSecond) * Time.deltaTime;
     }
 
-    public void CaculateTemperture()
+    public void CalculateTemperture()
     {
         tempertureDecayPerSecond = 0f;
 
@@ -93,11 +114,11 @@ public class PlayerStatController : MonoBehaviour
     }
 
     // ¼·¾¾ È­¾¾ º¯°æ
-    public float CalculateTemperture(float temperture)
-    {
-        if (_CelsiusToFahrenheit)
-            return (temperture * 1.8f + 32);
-        else
-            return temperture;
-    }
+    //public float CalculateTemperture(float temperture)
+    //{
+    //    if (_CelsiusToFahrenheit)
+    //        return (temperture * 1.8f + 32);
+    //    else
+    //        return temperture;
+    //}
 }

@@ -24,7 +24,7 @@ namespace PlayerOwnedStates
         public override void Execute(PlayerController entity) 
         {
             entity.Move.PlaneCheck();
-            entity.Move.Move();
+            entity.Move.Move(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             entity.AC.UpdateAnimation();
 
             if (Input.GetKeyDown(KeyCode.U)) { entity.AC.Play(AnimationUpperBody.HandWave); }
