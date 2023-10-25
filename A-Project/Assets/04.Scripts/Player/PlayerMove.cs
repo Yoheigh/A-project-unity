@@ -45,10 +45,13 @@ public class PlayerMove : MonoBehaviour
 
             // moveSpeed를 지형 지물에 따라서 변경해줘야 함
             controller.Move(MoveDir * moveSpeed * Time.deltaTime);
+
+            Managers.Object.Player.Stat.isMoving = true;
             AC.anim.SetBool("Move", true);
         }
         else
         {
+            Managers.Object.Player.Stat.isMoving = false;
             AC.anim.SetBool("Move", false);
         }
 
