@@ -30,15 +30,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorBlend:
-        m_Texture: {fileID: -8850434510810591741, guid: de62ee8a25bc84043a19ecae55cda628, type: 2}
+        m_Texture: {fileID: -3992851142714911352, guid: de62ee8a25bc84043a19ecae55cda628, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorByHeight:
-        m_Texture: {fileID: 6580560136608838963, guid: de62ee8a25bc84043a19ecae55cda628, type: 2}
+        m_Texture: {fileID: 1579471901511508609, guid: de62ee8a25bc84043a19ecae55cda628, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorByNormal:
-        m_Texture: {fileID: -2974417007702024687, guid: de62ee8a25bc84043a19ecae55cda628, type: 2}
+        m_Texture: {fileID: 742512527012618571, guid: de62ee8a25bc84043a19ecae55cda628, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:

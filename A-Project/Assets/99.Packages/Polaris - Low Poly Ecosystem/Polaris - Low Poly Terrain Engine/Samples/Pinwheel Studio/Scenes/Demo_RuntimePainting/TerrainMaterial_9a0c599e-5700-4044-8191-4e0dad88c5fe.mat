@@ -28,15 +28,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorBlend:
-        m_Texture: {fileID: -5776961545092064657, guid: 871ce7351f06702498489d956a9f9442, type: 2}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorByHeight:
-        m_Texture: {fileID: -6754020477838139534, guid: 871ce7351f06702498489d956a9f9442, type: 2}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorByNormal:
-        m_Texture: {fileID: -6705637640538245606, guid: 871ce7351f06702498489d956a9f9442, type: 2}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Control0:
@@ -60,11 +60,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: -3350217275784092111, guid: 871ce7351f06702498489d956a9f9442, type: 2}
+        m_Texture: {fileID: 8019257932777887170, guid: 0dab121e71a3e7e429417ae8b4ce9552, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 3170910706164833920, guid: 871ce7351f06702498489d956a9f9442, type: 2}
+        m_Texture: {fileID: -4966836673438200588, guid: 0dab121e71a3e7e429417ae8b4ce9552, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:

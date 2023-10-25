@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: --- Sound ---
+  m_EditorClassIdentifier: 
+  m_GroupName: --- Sound ---
+  m_Data:
+    m_SerializedData: []
+  m_GUID: d5852ce89a13e714a8fe4b0426742703
+  m_SerializeEntries:
+  - m_GUID: 0c035ac5624fa97458082c68173e868a
+    m_Address: OutsideWinter01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: e0293b74919e9364fa44fc0be32d4a7c, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 202463c58140fb742aef3556f8bfc0d4, type: 2}
+    - {fileID: 11400000, guid: aab4315873de544459b71574954a1064, type: 2}
