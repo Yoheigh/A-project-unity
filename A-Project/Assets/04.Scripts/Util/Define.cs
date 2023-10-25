@@ -48,6 +48,14 @@ public class Define
     }
     #endregion
 
+    #region Status
+    public enum CharacterGlobalStatus
+    {
+        Normal,
+        Dialoguing,
+    }
+    #endregion
+
     #region Scene
     public enum Scene
     {
