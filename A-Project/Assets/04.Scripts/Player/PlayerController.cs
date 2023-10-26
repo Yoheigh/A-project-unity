@@ -11,8 +11,8 @@ public class PlayerController : EntityController
     public PlayerInteract Interact;
     public PlayerStatController Stat;
 
-    private StateMachine<PlayerController> FSM;
-    private State<PlayerController>[] States;
+    public StateMachine<PlayerController> FSM;
+    public State<PlayerController>[] States;
 
     private void Start()
     {
@@ -37,7 +37,8 @@ public class PlayerController : EntityController
         States = new State<PlayerController>[Enum.GetValues(typeof(PlayerState)).Length - 1];
         States[0] = new Default();
         States[1] = new Falling();
-        States[2] = new State<PlayerController>();
+        States[2] = new Falling();
+        States[3] = new Dialoging();
 
         FSM.Setup(this, States[(int)PlayerState.Default]);
         FSM.ChangeState(States[(int)PlayerState.Default]);

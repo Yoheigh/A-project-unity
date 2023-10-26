@@ -44,6 +44,8 @@ public class PlayerStatController : MonoBehaviour
 
     public bool _CelsiusToFahrenheit = false;
     public bool isMoving = false;
+    public bool isSprintable = true;
+    public bool isSprinting = false;
 
     public CharacterGlobalStatus GlobalStatus { get; private set; }
 
@@ -111,8 +113,16 @@ public class PlayerStatController : MonoBehaviour
 
     public void CalculateStamina()
     {
-        if (isMoving == true) staminaIncreaseRate = 0;
+        if (isSprinting == true) staminaIncreaseRate = 0;
+        else if (isMoving == true) staminaIncreaseRate = 5;
         else staminaIncreaseRate = 9f;
+
+        if(stamina < 0.1f && isSprinting)
+        {
+            isSprintable = false;
+            isSprinting = false;
+            DG.Tweening.DOVirtual.DelayedCall(5f, () => isSprintable = true);
+        }
 
         stamina += (staminaDecreaseRate + staminaIncreaseRate + staminaDecayPerSecond) * Time.deltaTime;
         stamina = Mathf.Clamp(stamina, MinStamina, MaxStamina);
@@ -132,6 +142,12 @@ public class PlayerStatController : MonoBehaviour
 
         hunger += (hungerDecreaseRate + hungerDecayPerSecond) * Time.deltaTime;
         hunger = Mathf.Clamp(hunger, MinHunger, MaxHunger);
+    }
+
+    public void TryToChangeParameter(bool original, bool toChange)
+    {
+        if (original != false)
+            original = toChange;
     }
 
     // ¼·¾¾ È­¾¾ º¯°æ

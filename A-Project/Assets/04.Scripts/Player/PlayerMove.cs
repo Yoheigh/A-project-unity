@@ -8,9 +8,11 @@ using static Define;
 public class PlayerMove : MonoBehaviour
 {
     AnimationController AC => Managers.Object.Player.AC;
+    PlayerStatController Stat => Managers.Object.Player.Stat;
 
     // 기본 이동속도
     public float moveSpeed = 1f;
+    public float moveSpeedByNormal = 0f;
 
     // 회전 속도
     public float turnSmoothTime = 0.1f;
@@ -31,9 +33,31 @@ public class PlayerMove : MonoBehaviour
         cam = Camera.main.transform;
     }
 
+    public bool IsSprinting()
+    {
+        if (Stat.isSprintable == false)
+        {
+            return false;
+        }
+        else
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+                Stat.isSprinting = true;
+            else
+                Stat.isSprinting = false;
+        }
+        return Stat.isSprinting;
+    }
+
     public void Move(float xInput, float yInput)
     {
         Vector2 direction = new Vector2(xInput, yInput).normalized;
+
+        moveSpeed = IsSprinting() ? 2.1f : 0.7f;
+        float moveSpeedAnim = moveSpeed >= 2 ? 1f : 0f;
+        AC.anim.SetFloat("MoveSpeed", moveSpeedAnim);
+        moveSpeed += moveSpeedByNormal;
+
 
         if (direction.magnitude > 0.1f)
         {
@@ -66,6 +90,8 @@ public class PlayerMove : MonoBehaviour
 
         if (hit.collider == null) return;
 
+        IsNormalFacingUp(hit);
+
         if (currentPlane != hit.collider.gameObject.tag)
         {
             currentPlane = hit.collider.gameObject.tag;
@@ -73,15 +99,23 @@ public class PlayerMove : MonoBehaviour
             switch (hit.collider.gameObject.tag)
             {
                 case "Snow":
-                    AC.ChangeAnimationLayer(AnimationLayerType.Snow, 1, 1f);
-                    moveSpeed = 1.7f;
+                    AC.ChangeAnimationLayer(AnimationLayerType.Snow, 1);
+                    Stat.TryToChangeParameter(Stat.isSprintable, false);
                     break;
                 default:
-                    AC.ChangeAnimationLayer(AnimationLayerType.Snow, 0, 1f);
-                    moveSpeed = 3.4f;
+                    AC.ChangeAnimationLayer(AnimationLayerType.Snow, 0);
+                    Stat.TryToChangeParameter(Stat.isSprintable, true);
                     break;
             }
         }
+    }
+
+    bool IsNormalFacingUp(RaycastHit hit)
+    {
+        float angle = Vector3.Angle(hit.normal, Vector3.up);
+
+        moveSpeedByNormal = 1 - Mathf.Lerp(0, 1, angle / 90f);
+        return Vector3.Dot(hit.normal, Vector3.up) > 0.8f; // 정확한 값은 상황에 따라 조정할 수 있음
     }
 
     private void OnDrawGizmos()
