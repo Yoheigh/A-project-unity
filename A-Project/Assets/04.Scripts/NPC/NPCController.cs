@@ -14,11 +14,51 @@ public class NPCController : EntityController, IInteractable
     private StateMachine<NPCController> FSM;
     private State<NPCController>[] States;
 
+    private string[] strings = new string[]
+    {
+        "반갑네.",
+        "Korea 사람 불만 있어요?",
+        "카호 안 뽑은 You 에게 regret 있으리",
+        "내 할 말 끝났소"
+    };
+    private int index = -1;
+
+    public Define.PlayerInteractType Type { get => Define.PlayerInteractType.NPC; }
+
     public bool Interact(Interactor interactor, Action callback)
     {
-        Debug.Log("다이얼로그 실행");
-        callback?.Invoke();
+        index = 0;
+
+        Stat.ChangeGlobalStatus(Define.CharacterGlobalStatus.Dialoguing);
+
+        // 다이얼로그 시작과 같음
+        Managers.UI.ShowSubtitle<UIDialogueSubtitle>(strings[index]);
+
+
+        // 다음 다이얼로그 연결 index가 더 없으면
+        // Stat.ChangeGlobalStatus(Define.CharacterGlobalStatus.Normal);
         return true;
+    }
+
+    public void EndInteract()
+    {
+        Stat.ChangeGlobalStatus(Define.CharacterGlobalStatus.Normal);
+    }
+
+    public bool NextLine()
+    {
+        if (index < strings.Length - 1)
+        {
+            index++;
+            Managers.UI.ShowSubtitle<UIDialogueSubtitle>(strings[index]);
+            return true;
+        }
+        else
+        {
+            index = -1;
+            return false;
+        }
+
     }
 
     void Start()
@@ -49,9 +89,5 @@ public class NPCController : EntityController, IInteractable
             Move.LookAtSlowly(Managers.Object.Player.transform);
             Move.Move(0f, 0f);
         }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1)) { Stat.ChangeGlobalStatus(Define.CharacterGlobalStatus.Normal); }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) { Stat.ChangeGlobalStatus(Define.CharacterGlobalStatus.Dialoguing); }
-        if (Input.GetKeyDown(KeyCode.Alpha3)) { Managers.Event.Invoke(Define.IntEventType.OnSubtitleChange, 1); }
     }
 }
