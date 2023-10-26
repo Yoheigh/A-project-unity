@@ -42,6 +42,7 @@ public class Define
 
     public enum PlayerInteractType
     {
+        None,
         Item,
         ItemBox,
         NPC,

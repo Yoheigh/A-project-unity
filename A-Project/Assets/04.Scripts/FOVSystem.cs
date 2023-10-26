@@ -13,9 +13,9 @@ public class FOVSystem
 
     public Transform transform;
 
-    public float viewRadius;                // 시야 거리
-    public float viewAngle;                 // 시야 각
-    public float interactionRadius = 1f;    // 상호작용 거리
+    public float viewRadius = 3;                // 시야 거리
+    public float viewAngle = 180;                 // 시야 각
+    public float interactionRadius = 3f;    // 상호작용 거리
     public float refreshDelay = 0.1f;       // 재탐색 시간
 
     public LayerMask targetMask;
@@ -64,28 +64,29 @@ public class FOVSystem
         if (visibleTargets.Count == 0) return null;
 
         Transform returnValue = null;
-        float closestDistance = Mathf.Infinity;
+        //float closestDistance = Mathf.Infinity;
 
-        for (int i = 0; i < visibleTargets.Count; i++)
-        {
-            Transform _target = visibleTargets[i];
-            float dstToTarget = Vector3.Distance(transform.position, _target.position);
+        //for (int i = 0; i < visibleTargets.Count; i++)
+        //{
+        //    Transform _target = visibleTargets[i];
+        //    float dstToTarget = Vector3.Distance(transform.position, _target.position);
 
-            Vector3 dirToTarget = (_target.position - transform.position).normalized;
+        //    Vector3 dirToTarget = (_target.position - transform.position).normalized;
 
-            Debug.DrawLine(transform.position, transform.position + dirToTarget, Color.red, refreshDelay);
+        //    // Debug.DrawLine(transform.position, transform.position + dirToTarget, Color.red, refreshDelay);
 
-            // 상호작용할 오브젝트가 인터랙션할 수 있는 범위 안에 들어왔을 경우
-            if (Physics.Raycast(transform.position, dirToTarget, interactionRadius, targetMask))   // 장애물이 앞에 있는지
-            {
-                // 범위에 있는 오브젝트 중 가장 가까운 걸 리턴
-                if (dstToTarget < closestDistance)
-                {
-                    returnValue = _target;
-                    closestDistance = dstToTarget;
-                }
-            }
-        }
+        //    // 상호작용할 오브젝트가 인터랙션할 수 있는 범위 안에 들어왔을 경우
+        //    if (Physics.Raycast(transform.position, dirToTarget, interactionRadius, targetMask))   // 장애물이 앞에 있는지
+        //    {
+        //        // 범위에 있는 오브젝트 중 가장 가까운 걸 리턴
+        //        if (dstToTarget < closestDistance)
+        //        {
+        //            returnValue = _target;
+        //            closestDistance = dstToTarget;
+        //        }
+        //    }
+        //}
+        returnValue = visibleTargets[0];
         return returnValue;
     }
 

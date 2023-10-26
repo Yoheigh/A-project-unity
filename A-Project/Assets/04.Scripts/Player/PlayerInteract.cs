@@ -6,9 +6,28 @@ using static Define;
 
 public class PlayerInteract : Interactor
 {
+    public IInteractable currentInteract;
+
+    public PlayerInteractType InteractionCheck()
+    {
+        if (TryToInteract(out IInteractable obj))
+        {
+            StartInteract(obj);
+            return obj.Type;
+        }
+        else
+            return PlayerInteractType.None;
+    }
+
+    public override void StartInteract(IInteractable interactable)
+    {
+        currentInteract = interactable;
+        interactable.Interact(this);
+    }
+
     public virtual void StopInteract()
     {
-
+        currentInteract = null;
     }
 
     //public void Interact(PlayerInteractType type)
@@ -44,5 +63,9 @@ public class PlayerInteract : Interactor
 
 public interface IInteractable
 {
+    public PlayerInteractType Type { get; }
+
     public bool Interact(Interactor interactor, Action callback = null);
+    public void EndInteract();
+    public bool NextLine();
 }
