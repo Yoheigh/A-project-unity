@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class UIToast : UIBase
 {
-   
     enum Images
     {
         BackgroundImage
@@ -29,14 +28,15 @@ public class UIToast : UIBase
     {
         if (base.Init() == false)
             return false;
-        
-        BindImage(typeof(Images));
-        BindText(typeof(Texts));
-        Refresh();
+
+        Managers.UI.SetCanvas(gameObject, false, 0, true);
+        //BindImage(typeof(Images));
+        //BindText(typeof(Texts));
+        //Refresh();
         return true;
     }
 
-    public void SetInfo(string msg)
+    public virtual void SetInfo(string msg)
     {
         // 메시지 변경
         transform.localScale = Vector3.one;

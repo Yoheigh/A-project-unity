@@ -14,8 +14,9 @@ public class UIManager
     int _toastOrder = 500;
 
     Stack<UIPopup> _popupStack = new Stack<UIPopup>();
-    Stack<UIToast> _toastStack = new Stack<UIToast>();
+    Queue<UIToast> _toastQueue = new Queue<UIToast>();
     UIScene _sceneUI = null;
+    UIToast _subtitleUI = null;
     public UIScene SceneUI { get { return _sceneUI; } }
 
     public event Action<int> OnTimeScaleChanged;
@@ -44,7 +45,7 @@ public class UIManager
         if (cs != null)
         {
             cs.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            cs.referenceResolution = new Vector2(1920 , 1080);
+            cs.referenceResolution = new Vector2(1920, 1080);
         }
 
         go.GetOrAddComponent<GraphicRaycaster>();
@@ -115,7 +116,6 @@ public class UIManager
         GameObject go = Managers.Resource.Instantiate($"{name}");
         T popup = Util.GetOrAddComponent<T>(go);
         _popupStack.Push(popup);
-        Debug.Log($"{_popupStack.Peek()} 이건 {popup}이야");
 
         go.transform.SetParent(Root.transform);
 
@@ -131,11 +131,10 @@ public class UIManager
 
         if (_popupStack.Peek() != popup)
         {
-            Debug.Log($"{_popupStack.Peek()} 이건 {popup}이 아니라는데?");
             Debug.Log("Close Popup Failed!");
             return;
         }
-        
+
         ClosePopupUI();
     }
 
@@ -157,13 +156,51 @@ public class UIManager
             ClosePopupUI();
     }
 
+    public T ShowSubtitle<T>(string msg) where T : UIToast
+    {
+        if (_subtitleUI != null)
+            Managers.Resource.Destroy(_subtitleUI.gameObject);
+
+        GameObject go = Managers.Resource.Instantiate($"{typeof(T).Name}");
+        T toast = Util.GetOrAddComponent<T>(go);
+        _subtitleUI = toast;
+
+        _subtitleUI.SetInfo(msg);
+        go.transform.SetParent(Root.transform);
+
+        DOVirtual.DelayedCall(5f, () =>
+        {
+            if (toast != null)
+            {
+                Managers.Resource.Destroy(toast.gameObject);
+            }
+        });
+        return toast;
+    }
+
+    public T ShowToast<T>(string name = null, string msg = null) where T : UIToast
+    {
+        if (string.IsNullOrEmpty(name))
+            name = typeof(T).Name;
+
+        GameObject go = Managers.Resource.Instantiate($"{name}");
+        T toast = Util.GetOrAddComponent<T>(go);
+        _toastQueue.Enqueue(toast);
+
+        toast.SetInfo(msg);
+        go.transform.SetParent(Root.transform);
+
+        DOVirtual.DelayedCall(5f, () => Managers.UI.CloseToastUI());
+        return toast;
+    }
+
     public UIToast ShowToast(string msg)
     {
         string name = typeof(UIToast).Name;
         GameObject go = Managers.Resource.Instantiate($"{name}", pooling: true);
         UIToast popup = Util.GetOrAddComponent<UIToast>(go);
         popup.SetInfo(msg);
-        _toastStack.Push(popup);
+        _toastQueue.Enqueue(popup);
         go.transform.SetParent(Root.transform);
         CoroutineManager.StartCoroutine(CoCloseToastUI());
         return popup;
@@ -177,10 +214,10 @@ public class UIManager
 
     public void CloseToastUI()
     {
-        if (_toastStack.Count == 0)
+        if (_toastQueue.Count == 0)
             return;
 
-        UIToast toast = _toastStack.Pop();
+        UIToast toast = _toastQueue.Dequeue();
         Managers.Resource.Destroy(toast.gameObject);
         toast = null;
         _toastOrder--;
@@ -215,7 +252,7 @@ public class UIManager
         OnTimeScaleChanged?.Invoke((int)Time.timeScale);
     }
 
-   
+
     bool _isActiveSoulShop = false;
     public bool IsActiveSoulShop
     {

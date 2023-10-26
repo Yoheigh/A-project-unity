@@ -6,10 +6,8 @@ using TMPro;
 using DG.Tweening;
 using static Define;
 
-public class UIDialogueSubtitle : UIPopup
+public class UIDialogueSubtitle : UIToast
 {
-    private float nextDialogWaitTime = 5f;
-
     enum Images
     {
         SpeakerImage,
@@ -32,20 +30,18 @@ public class UIDialogueSubtitle : UIPopup
         if (base.Init() == false)
             return false;
 
-        Bind<Image>(typeof(Images));
-        Bind<TMP_Text>(typeof(Texts));
+        Managers.UI.SetCanvas(gameObject, false, 100);
+        BindImage(typeof(Images));
+        BindText(typeof(Texts));
 
-        Managers.Event.AddEvent(IntEventType.OnSubtitleChange, SetSubtitleText);
+        // Managers.Event.AddEvent(IntEventType.OnSubtitleChange, SetInfo);
 
         return true;
     }
 
-    private void SetSubtitleText(int index)
+    public override void SetInfo(string msg)
     {
-        GetText((int)Texts.SubtitleText).text = "index로 Dialog 불러오기 기능 대기중";
-        DOVirtual.DelayedCall(5f, () => base.ClosePopupUI());
-
-        // 이 자막이 ClosePopupUI로 꺼지면 안 되기 때문에 #7 이슈에 적어둠
+        GetText((int)Texts.SubtitleText).text = msg;
     }
 
     
