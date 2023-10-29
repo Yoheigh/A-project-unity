@@ -66,13 +66,13 @@ public class SceneManager : MonoBehaviour
 
     public void RemoveSceneClass(string sceneName)
     {
-        //if (sceneName == "Login") Destroy(GetComponent<LoginScene>());
+        if (sceneName == "WorldScene") Destroy(GetComponent<WorldScene>());
         //if (sceneName == "Lobby") Destroy(GetComponent<LobbyScene>());
     }
 
     public void LoadScene(string sceneName)
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+        Destroy(gameObject.GetComponent<WorldScene>());
     }
     public string GetCurrentSceneName()
     {

@@ -19,6 +19,8 @@ public class UIManager
     UIToast _subtitleUI = null;
     public UIScene SceneUI { get { return _sceneUI; } }
 
+    public bool isInventoryActivate = false;
+
     public event Action<int> OnTimeScaleChanged;
 
     public GameObject Root
@@ -147,6 +149,11 @@ public class UIManager
         Managers.Resource.Destroy(popup.gameObject);
         popup = null;
         _order--;
+
+        // Á×ÀÏ ³ðµé 7
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         RefreshTimeScale();
     }
 
@@ -176,6 +183,12 @@ public class UIManager
             }
         });
         return toast;
+    }
+
+    public void CloseSubtitle()
+    {
+        if (_subtitleUI != null)
+            Managers.Resource.Destroy(_subtitleUI.gameObject);
     }
 
     public T ShowToast<T>(string name = null, string msg = null) where T : UIToast

@@ -51,4 +51,5 @@ public class Managers : MonoBehaviour
     public static SceneManager Scene { get { return SceneManager.Instance; } }
     public static CoroutineManager CO { get { return CoroutineManager.Instance; } }
     public static TickManager Tick { get { return TickManager.Instance; } }
+    public static EnvironmentController Env { get { return EnvironmentController.Instance; } }
 }

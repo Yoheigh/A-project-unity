@@ -9,6 +9,9 @@ public class WorldScene : BaseScene
         // var sub = Managers.UI.ShowSubtitle<UIDialogueSubtitle>("자막바");
         var ui = Managers.UI.ShowSceneUI<UIGameStatus>();
 
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         //var sub = Managers.UI.MakeSubItem<UIDialogueSubtitle>(Managers.UI.Root.transform, null, true);
         // #7 이슈
         //sub.Init();
