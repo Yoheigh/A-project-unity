@@ -20,7 +20,7 @@ public class PlayerMove : MonoBehaviour
     string currentPlane = string.Empty;
     float turnSmoothVelocity;
 
-    CharacterController controller;
+    public CharacterController controller;
     Transform cam;
 
     // Animation Parameter
@@ -100,10 +100,12 @@ public class PlayerMove : MonoBehaviour
             {
                 case "Snow":
                     AC.ChangeAnimationLayer(AnimationLayerType.Snow, 1);
-                    Stat.TryToChangeParameter(Stat.isSprintable, false);
+                    Managers.Env.SnowStorm();
+                    Stat.isSprintable = false;
                     break;
                 default:
                     AC.ChangeAnimationLayer(AnimationLayerType.Snow, 0);
+                    Managers.Env.Normal();
                     Stat.TryToChangeParameter(Stat.isSprintable, true);
                     break;
             }

@@ -12,8 +12,13 @@ public class PlayerInteract : Interactor
     {
         if (TryToInteract(out IInteractable obj))
         {
-            StartInteract(obj);
-            return obj.Type;
+            if (obj.Interact(this) == true)
+            {
+                StartInteract(obj);
+                return obj.Type;
+            }
+            else
+                return PlayerInteractType.None;
         }
         else
             return PlayerInteractType.None;
@@ -22,7 +27,6 @@ public class PlayerInteract : Interactor
     public override void StartInteract(IInteractable interactable)
     {
         currentInteract = interactable;
-        interactable.Interact(this);
     }
 
     public virtual void StopInteract()

@@ -77,8 +77,8 @@ public class PlayerStatController : MonoBehaviour
     {
         hp = MaxHP;
         stamina = MaxStamina;
-        hunger = MaxHunger;
-        temperture = MaxTemperture;
+        hunger = 30f; //MaxHunger;
+        temperture = 30f; // MaxTemperture;
 
         ChangeGlobalStatus(CharacterGlobalStatus.Normal);
     }
@@ -103,6 +103,9 @@ public class PlayerStatController : MonoBehaviour
 
     public void CalculateHP()
     {
+        if (hp < 0.001)
+            Managers.Object.Player.FSM.ChangeState(Managers.Object.Player.States[(int)PlayerState.Ragdoll]);
+
         hpDecayPerSecond = 0f;
         if (hunger == 0)     hpDecayPerSecond += -0.5f;
         if (temperture == 0) hpDecayPerSecond += -0.5f;

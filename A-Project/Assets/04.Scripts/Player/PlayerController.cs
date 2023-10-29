@@ -14,6 +14,10 @@ public class PlayerController : EntityController
     public StateMachine<PlayerController> FSM;
     public State<PlayerController>[] States;
 
+    // 해당 index의 이벤트가 완료되면, 더 이상 일어나지 않는다.
+    // 물론 이건 여기다 둘 건 아님 없어져야 함 이거
+    public int _eventIndex = 0;
+
     private void Start()
     {
         Init();
@@ -35,10 +39,10 @@ public class PlayerController : EntityController
         FSM = new StateMachine<PlayerController>();
 
         States = new State<PlayerController>[Enum.GetValues(typeof(PlayerState)).Length - 1];
-        States[0] = new Default();
-        States[1] = new Falling();
-        States[2] = new Falling();
-        States[3] = new Dialoging();
+        States[(int)PlayerState.Default] = new Default();
+        States[(int)PlayerState.Falling] = new Falling();
+        States[(int)PlayerState.Ragdoll] = new Ragdoll();
+        States[(int)PlayerState.Dialoging] = new Dialoging();
 
         FSM.Setup(this, States[(int)PlayerState.Default]);
         FSM.ChangeState(States[(int)PlayerState.Default]);
