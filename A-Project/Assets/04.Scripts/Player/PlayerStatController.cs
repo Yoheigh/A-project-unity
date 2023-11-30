@@ -77,15 +77,13 @@ public class PlayerStatController : MonoBehaviour
     {
         hp = MaxHP;
         stamina = MaxStamina;
-        hunger = 30f; //MaxHunger;
-        temperture = 30f; // MaxTemperture;
 
         ChangeGlobalStatus(CharacterGlobalStatus.Normal);
     }
 
     private void Update()
     {
-        CaculateStatAll();
+        // CaculateStatAll();
     }
 
     public void ChangeGlobalStatus(CharacterGlobalStatus status)

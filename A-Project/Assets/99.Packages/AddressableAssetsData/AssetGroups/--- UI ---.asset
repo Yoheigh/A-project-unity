@@ -29,6 +29,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd55e07f7db5d3c429d65b05415c1a8a
+    m_Address: UIPlayerInventory
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: e0293b74919e9364fa44fc0be32d4a7c, type: 2}
   m_SchemaSet:

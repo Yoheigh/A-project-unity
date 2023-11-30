@@ -37,13 +37,16 @@ public class EnvironmentController : MonoBehaviour
         bloom = (Bloom)Volume.m_Profile.components[1];
         vignette = (Vignette)Volume.m_Profile.components[2];
         depth = (DepthOfField)Volume.m_Profile.components[4];
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
-        bloom.dirtIntensity.value = bloomModifier + (100f - Managers.Object.Player.Stat.Temperture) / 7f;
-        vignette.intensity.value = vignetteModifier + (100f - Managers.Object.Player.Stat.HP) / 400f;
+        // bloom.dirtIntensity.value = bloomModifier + (100f - Managers.Object.Player.Stat.Temperture) / 7f;
+        // vignette.intensity.value = vignetteModifier + (100f - Managers.Object.Player.Stat.HP) / 400f;
 
         if (Input.GetKeyDown(KeyCode.Alpha5)) Normal();
         if (Input.GetKeyDown(KeyCode.Alpha6)) SnowStorm();
@@ -62,12 +65,14 @@ public class EnvironmentController : MonoBehaviour
     public void Normal()
     {
         bloomModifier = 0;
+        bloom.dirtIntensity.value = 0;
         vignetteModifier = 0.348f;
     }
 
     public void SnowStorm()
     {
         bloomModifier = 10f;
+        bloom.dirtIntensity.value = 14f;
         vignetteModifier = 0.454f;
     }
 }
